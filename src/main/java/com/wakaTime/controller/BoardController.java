@@ -12,6 +12,15 @@ import com.wakaTime.service.BoardService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
+
+/**
+ * 게시판 컨트롤러
+ * 
+ * @author cgKim, hsLee
+ * @since 2021. 07. 22.
+ *
+ */
+
 @Controller
 @Log4j
 @RequestMapping("/board/*")
@@ -22,8 +31,10 @@ public class BoardController {
 
   @GetMapping("/list")
   public void list(Model model) {
+
     log.info("list");
     model.addAttribute("list", service.getList());
+
 
   }
 
@@ -47,7 +58,7 @@ public class BoardController {
   public String modify(BoardVO board, RedirectAttributes rttr) {
     log.info("modify:" + board);
 
-    if(service.modify(board)) {
+    if (service.modify(board)) {
       rttr.addFlashAttribute("result", "success");
     }
 
@@ -57,7 +68,7 @@ public class BoardController {
   @PostMapping("/remove")
   public String remove(@RequestParam("bno") Long bno, RedirectAttributes rttr) {
     log.info("remove...." + bno);
-    if(service.remove(bno)) {
+    if (service.remove(bno)) {
       rttr.addFlashAttribute("result", "success");
     }
     return "redirect:/board/list";
